@@ -27,6 +27,14 @@ const Form = ({ isOpen, onOpenChange, }) => {
 		setDescription(prev => '');
 	}
 
+	const handleClose = () => {
+		setInvalid(prev => {
+			onOpenChange(false);
+			clearInputs()
+			return false;
+		})
+	}
+
 	useEffect(() => {
 		setInvalid(false);
 	}, [name])
@@ -34,7 +42,7 @@ const Form = ({ isOpen, onOpenChange, }) => {
 	return (
 		<Modal
 			isOpen={isOpen}
-			onOpenChange={onOpenChange}
+			onOpenChange={handleClose}
 			backdrop="blur"
 			placement="top-center"
 			className="dark text-foreground"
