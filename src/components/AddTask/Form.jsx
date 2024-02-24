@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, Textarea } from "@nextui-org/react";
 
@@ -7,13 +7,19 @@ import { useTasks } from '../../context/TasksContext';
 const Form = ({ isOpen, onOpenChange, }) => {
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
+	const [isInvalid, setInvalid] = useState(false);
 	const { addTask } = useTasks();
 
 	const handleSubmit = () => {
+		if (name.length <= 0) {
+			setInvalid(true);
+			return;
+		}
+
 		addTask({ id: Date.now(), name: name, description: description, concluded: false });
 		clearInputs();
 		onOpenChange(false);
-		console.log(onOpenChange)
+		setInvalid(false);
 	};
 
 	function clearInputs() {
@@ -21,6 +27,9 @@ const Form = ({ isOpen, onOpenChange, }) => {
 		setDescription(prev => '');
 	}
 
+	useEffect(() => {
+		setInvalid(false);
+	}, [name])
 
 	return (
 		<Modal
@@ -60,6 +69,8 @@ const Form = ({ isOpen, onOpenChange, }) => {
 								placeholder="Enter your task name"
 								value={name}
 								onChange={(e) => setName(e.target.value)}
+								isInvalid={isInvalid}
+								errorMessage={isInvalid ? "Your task needs a name" : ""}
 							/>
 							<Textarea
 								label="Description"
