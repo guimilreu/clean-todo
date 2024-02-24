@@ -13,7 +13,7 @@ const index = () => {
 	if (tasks.length === 0) return <div className="text-zinc-400 text-left">You don't have any tasks.</div>
 
 	return (
-		<ScrollShadow className="w-full max-h-[80vh] overflow-y-auto">
+		<ScrollShadow className="w-full max-h-[80vh] overflow-y-auto flex flex-col gap-4">
 			{tasks.length > 0 && tasks.filter(task => !task.concluded).length > 0 && <div className="flex flex-col gap-1">
 				<AnimatePresence>
 					<motion.div
