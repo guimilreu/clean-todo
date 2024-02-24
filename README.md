@@ -12,8 +12,10 @@ This project is a simple, minimalist, and clean To Do list designed to help user
 
 ## Preview
 
-![App Preview](https://i.imgur.com/UiYqUuT.png)
-You can access a live demo of the To Do list app here: [Clean ToDo Preview](#)
+![App Preview](https://i.imgur.com/rpm1EpK.png)
+
+### Live demo
+You can access a live demo of the To Do list app here: [Clean ToDo Preview](https://guimilreu.github.io/clean-todo/)
 
 ## Getting Started
 
