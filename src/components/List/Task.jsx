@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 import { Checkbox, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
-import { MoreVertical, Edit, Trash2 } from 'react-feather';
+import { MoreVertical, Edit, Trash2, Eye } from 'react-feather';
 
-const Task = ({ concluded = false, task, key, setTask, removeTask, setEditingTask }) => {
+const Task = ({ concluded = false, task, key, setTask, removeTask, setEditingTask, setViewingTask }) => {
 	const [isSelected, setIsSelected] = useState(false);
 
 	const handleSelected = () => {
@@ -26,39 +26,49 @@ const Task = ({ concluded = false, task, key, setTask, removeTask, setEditingTas
 
 			<div className="flex flex-col w-full">
 				<p className="font-medium text-lg group-[.concluded]:line-through">{task.name}</p>
-				<span className="text-zinc-400 text-sm group-[.concluded]:line-through">{task.description}</span>
+				<span className="text-zinc-400 text-sm group-[.concluded]:line-through">{task.description.length <= 150 ? task.description : task.description.slice(0, 150) + '...'}</span>
 			</div>
 
-			<Dropdown className="dark text-foreground">
-				<DropdownTrigger>
-					<Button
-						variant="bordered"
-						isIconOnly
-					>
-						<MoreVertical size={16} />
-					</Button>
-				</DropdownTrigger>
+			<div className="flex">
+				<Button
+					variant="bordered"
+					isIconOnly
+					onPress={() => setViewingTask(task)}
+				>
+					<Eye size={16} />
+				</Button>
 
-				<DropdownMenu aria-label="Static Actions">
-					<DropdownItem
-						key="edit"
-						endContent={<Edit size={14} />}
-						onPress={() => setEditingTask(task)}
-					>
-						Edit
-					</DropdownItem>
+				<Dropdown className="dark text-foreground">
+					<DropdownTrigger>
+						<Button
+							variant="bordered"
+							isIconOnly
+						>
+							<MoreVertical size={16} />
+						</Button>
+					</DropdownTrigger>
 
-					<DropdownItem
-						key="delete"
-						endContent={<Trash2 size={14} />}
-						className="text-danger"
-						color="danger"
-						onPress={() => removeTask(task.id)}
-					>
-						Delete
-					</DropdownItem>
-				</DropdownMenu>
-			</Dropdown>
+					<DropdownMenu aria-label="Static Actions">
+						<DropdownItem
+							key="edit"
+							endContent={<Edit size={14} />}
+							onPress={() => setEditingTask(task)}
+						>
+							Edit
+						</DropdownItem>
+
+						<DropdownItem
+							key="delete"
+							endContent={<Trash2 size={14} />}
+							className="text-danger"
+							color="danger"
+							onPress={() => removeTask(task.id)}
+						>
+							Delete
+						</DropdownItem>
+					</DropdownMenu>
+				</Dropdown>
+			</div>
 		</li>
 	)
 }

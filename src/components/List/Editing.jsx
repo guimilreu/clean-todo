@@ -85,7 +85,7 @@ const Editing = ({ editingTask, setEditingTask }) => {
 							/>
 						</ModalBody>
 						<ModalFooter>
-							<Button color="danger" variant="flat" onPress={onClose}>
+							<Button color="danger" variant="flat" onPress={handleClose}>
 								Close
 							</Button>
 							<Button color="primary" onPress={() => handleSubmit()}>
